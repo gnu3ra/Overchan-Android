@@ -489,10 +489,16 @@ public class InfinityModule extends AbstractVichanModule {
             attachment.originalName = object.optString("filename", "") + ext;
             attachment.isSpoiler = isSpoiler;
             String tim = object.optString("tim", "");
-            if (tim.length() > 0) {
+            if (tim.length() > 13) {
                 attachment.thumbnail = isSpoiler || attachment.type == AttachmentModel.TYPE_AUDIO ? null :
                         ("/file_store/thumb/" + tim + ".jpg");
                 attachment.path = "/file_store/" + tim + ext;
+                return attachment;
+            }
+            else {
+                attachment.thumbnail = isSpoiler || attachment.type == AttachmentModel.TYPE_AUDIO ? null :
+                        ("/" + boardName + "/thumb/" + tim + ".jpg");
+                attachment.path = "/" + boardName + "/src/" + tim + ext;
                 return attachment;
             }
         }
